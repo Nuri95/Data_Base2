@@ -32,13 +32,10 @@ LEFT JOIN Artist A2 ON A2.ArtistId = A.artistId
 def db_output(query_string):
     try:
         con = lite.connect('Chinook_Sqlite.sqlite')
-        # создаем объект cursor, который позволяет нам взаимодействовать с базой данных и добавлять записи
         cur = con.cursor()
-        cur.execute(query_string)  # Вставляем данные в таблицу
+        cur.execute(query_string)
 
-        con.commit()   # # Сохраняем изменения
-
-        data = cur.fetchall()   # для получения результатов
+        data = cur.fetchall()
         pprint.pprint(data)
     except Exception as e:
         print(e)
