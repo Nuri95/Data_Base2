@@ -17,11 +17,16 @@ order by t DESC
 limit 3;
 '''
 query_string_third_task = '''
-select t.name as GenreName, T1.name,A.title, A2.Name   FROM (select G.GenreId, G.name  from InvoiceLine IL
-JOIN Track T ON T.trackId = IL.trackId
-Join Genre G ON G.GenreId = T.GenreId
-group by G.GenreId
-order by sum(quantity) DESC limit 1) t
+select t.name as GenreName,
+       T1.name as Track,
+       A.title as Album,
+       A2.Name as Artist
+FROM (select G.GenreId, G.name
+    from InvoiceLine IL
+    JOIN Track T ON T.trackId = IL.trackId
+    Join Genre G ON G.GenreId = T.GenreId
+    group by G.GenreId
+    order by sum(quantity) DESC limit 1) t
 Join Track T1 ON T1.GenreId  = t.GenreId
 LEFT JOIN Album A ON A.AlbumId = T1.AlbumId
 LEFT JOIN Artist A2 ON A2.ArtistId = A.artistId
