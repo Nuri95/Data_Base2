@@ -5,9 +5,14 @@ import pprint
 
 query_string_first_task = '''
 SELECT C.FirstName, C.LastName, C.Phone, C.City FROM Customer C JOIN (
-     SELECT C1.City, C1.CustomerId FROM Customer C1
-     group by C1.City having count(C1.CustomerId) > 1
-) TMP1 ON TMP1.City = C.City;
+    SELECT C1.City, C1.CustomerId FROM Customer C1
+    inner join Invoice 
+    on C1.CustomerId = Invoice.CustomerId
+    group by C1.City 
+    having count(distinct C1.CustomerId) > 1
+) TMP1 ON TMP1.City = C.City 
+inner join Invoice X on C.CustomerId =X.CustomerId 
+group by C.CustomerId;
 
 '''
 query_string_second_task = '''
