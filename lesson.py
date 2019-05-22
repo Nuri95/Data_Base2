@@ -13,7 +13,6 @@ SELECT C.FirstName, C.LastName, C.Phone, C.City FROM Customer C JOIN (
 query_string_second_task = '''
 select c.City, round(sum(i.Total),2) as t from Customer c inner join Invoice I on c.CustomerId = I.CustomerId
 group by c.City
-having  sum(i.Total)
 order by t DESC
 limit 3;
 '''
@@ -28,6 +27,8 @@ LEFT JOIN Album A ON A.AlbumId = T1.AlbumId
 LEFT JOIN Artist A2 ON A2.ArtistId = A.artistId
 ;
 '''
+
+
 def db_output(query_string):
     try:
         con = lite.connect('Chinook_Sqlite.sqlite')
